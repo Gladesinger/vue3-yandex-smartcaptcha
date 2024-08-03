@@ -6,13 +6,45 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "generate:types": "vue-tsc --declaration --emitDeclarationOnly --outdir ./dist",
+    "types": "vue-tsc",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "vue": "^3.4.31"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gladesinger/vue3-yandex-smartcaptcha.git"
+  },
+  "keywords": [
+    "Yandex",
+    "Captcha",
+    "Smartcaptcha",
+    "Vue",
+    "Vue3"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "./dist/vue3-yandex-smartcapcha.umd.cjs",
+  "module": "./dist/vue3-yandex-smartcapcha.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-yandex-smartcapcha.js",
+      "require": "./dist/vue3-yandex-smartcapcha.umd.cjs"
+    }
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.5",
-    "vite": "^5.3.4"
+    "@types/node": "^22.1.0",
+    "@vitejs/plugin-vue": "^5.1.2",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.4",
+    "vite-plugin-dts": "^4.0.0-beta.2",
+    "vue": "^3.0.0",
+    "vue-tsc": "^2.0.29"
   }
 }

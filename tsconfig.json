@@ -1,0 +1,16 @@
+{
+    "files": [],
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+    },
+    "references": [
+      {
+        "path": "./tsconfig.app.json"
+      },
+      {
+        "path": "./tsconfig.node.json"
+      }
+    ],
+    "exclude": ["src/App.vue", "src/main.ts"]
+  }

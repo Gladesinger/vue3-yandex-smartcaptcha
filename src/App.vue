@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
-import { YandexSmartCaptcha } from '.';
+import YandexSmartCaptcha from './components/YandexSmartCaptcha.vue';
 
 const token = ref(null)
 const yaCaptcha = ref(null)
