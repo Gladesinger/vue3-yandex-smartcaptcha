@@ -1,7 +1,7 @@
 {
   "name": "@gladesinger/vue3-yandex-smartcaptcha",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +19,8 @@
     "Captcha",
     "Smartcaptcha",
     "Vue",
-    "Vue3"
+    "Vue3",
+    "Nuxt"
   ],
   "license": "MIT",
   "files": [

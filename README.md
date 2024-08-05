@@ -1,8 +1,10 @@
+Yandex Smart Captcha Vue component
+
 # Vue 3 Yandex SmartCaptcha
 
-[Русская версия](#rus) | [English version](#en)
+[Русская версия](#описание) | [English version](#description)
 
-## <a name="rus"></a>Описание
+## Описание
 
 Компонент для работы с Yandex Smartcaptcha. Перед использованием нужно зарегистрироваться и получить ключ клиента. Вся документация капчи доступна по ссылке [Yandex Smartcaptcha](https://yandex.cloud/ru/docs/smartcaptcha/)
 
@@ -23,7 +25,7 @@ npm install @gladesinger/vue3-yandex-smartcaptcha
 Импортируйте компонент и используйте его в вашем файле Vue:
 
 ```javascript
-import YandexSmartCaptcha from '@gladesinger/vue3-yandex-smartcaptcha'
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
 ```
 
 Или зарегистрируйте его через плагин Vue:
@@ -31,7 +33,7 @@ import YandexSmartCaptcha from '@gladesinger/vue3-yandex-smartcaptcha'
 ```javascript
 import { createApp } from 'vue'
 import App from './App.vue'
-import YandexSmartCaptcha from '@gladesinger/vue3-yandex-smartcaptcha'
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
 
 const app = createApp(App)
 app.component('YandexSmartCaptcha', YandexSmartCaptcha)
@@ -100,7 +102,7 @@ type SubscribeEvent =
 
 ```vue
 <script setup>
-import YandexSmartCaptcha from '@gladesinger/vue3-yandex-smartcaptcha'
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
 
 const success = (token) => {
   console.log(token)
@@ -126,7 +128,7 @@ const expired = () => {
 
 ```vue
 <script setup>
-import YandexSmartCaptcha from '@gladesinger/vue3-yandex-smartcaptcha'
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
 import { ref } from 'vue'
 
 const yaCaptcha = ref(null)
@@ -159,7 +161,7 @@ const fireCaptcha = () => {
 </template>
 ```
 
-## <a name="en"></a>Description
+## Description
 
 This package brings a component for Yandex Smartcaptcha. Before using it you need to get the user token from the official website. Smartcaptcha documentation available here [Yandex Smartcaptcha](https://yandex.cloud/en/docs/smartcaptcha/)
 
@@ -180,7 +182,7 @@ You can use the `YandexSmartCaptcha` component in your Vue 3 project as follows:
 Import the component and use it in your Vue file:
 
 ```javascript
-import YandexSmartCaptcha from '@gladesinger/vue3-yandex-smartcaptcha'
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
 ```
 
 Or register it as a Vue plugin:
@@ -188,7 +190,7 @@ Or register it as a Vue plugin:
 ```javascript
 import { createApp } from 'vue'
 import App from './App.vue'
-import YandexSmartCaptcha from '@gladesinger/vue3-yandex-smartcaptcha'
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
 
 const app = createApp(App)
 app.component('YandexSmartCaptcha', YandexSmartCaptcha)
@@ -258,7 +260,7 @@ The component also exposes the `widgetId` state, if you need it for your case.
 
 ```vue
 <script setup>
-import YandexSmartCaptcha from '@gladesinger/vue3-yandex-smartcaptcha'
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
 
 const success = (token) => {
   console.log(token)
@@ -284,7 +286,7 @@ const expired = () => {
 
 ```vue
 <script setup>
-import YandexSmartCaptcha from '@gladesinger/vue3-yandex-smartcaptcha'
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
 import { ref } from 'vue'
 
 const yaCaptcha = ref(null)
