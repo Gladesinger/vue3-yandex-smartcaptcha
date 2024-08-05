@@ -2,7 +2,11 @@
 
 [Русская версия](#rus) | [English version](#en)
 
-## <a name="rus"></a>Установка
+## <a name="rus"></a>Описание
+
+Компонент для работы с Yandex Smartcaptcha. Перед использованием нужно зарегистрироваться и получить ключ клиента. Вся документация капчи доступна по ссылке [Yandex Smartcaptcha](https://yandex.cloud/ru/docs/smartcaptcha/)
+
+## Установка
 
 Чтобы установить этот пакет, выполните следующую команду:
 
@@ -155,8 +159,11 @@ const fireCaptcha = () => {
 </template>
 ```
 
+## <a name="en"></a>Description
 
-## <a name="en"></a> Installation
+This package brings a component for Yandex Smartcaptcha. Before using it you need to get the user token from the official website. Smartcaptcha documentation available here [Yandex Smartcaptcha](https://yandex.cloud/en/docs/smartcaptcha/)
+
+## Installation
 
 To install this package, run the following command:
 
