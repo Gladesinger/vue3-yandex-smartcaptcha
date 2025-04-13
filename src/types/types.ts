@@ -7,6 +7,16 @@
 // 	| "onSuccess"
 // 	| "onTokenExpired";
 
+
+declare global {
+	interface Window {
+		smartCaptcha?: SmartCaptcha;
+	}
+	interface HTMLScriptElement {
+		loaded?: boolean;
+	}
+}
+
 export type CaptchaEvents =
 	| "callback"
 	| "challenge-visible"
@@ -31,6 +41,14 @@ export type SupportedLanguage = "ru" | "en" | "be" | "kk" | "tt" | "uk" | "uz" |
 
 export type ShieldPosition = "bottom-right" | "top-left";
 
+export interface IYandexSmartCaptcha {
+	subscribe: (eventName: CaptchaEvents, callback: Function) => void;
+	execute: () => void;
+	getResponse: () => string;
+	reset: () => void;
+	destroy: () => void;
+}
+
 export interface SmartCaptcha {
 	render: (container: HTMLElement, options: SmartCaptchaOptions) => string;
 	subscribe: (widgetId: string, eventName: CaptchaEvents, callback: Function) => void;
@@ -38,15 +56,6 @@ export interface SmartCaptcha {
 	getResponse: (widgetId: string) => string;
 	reset: (widgetId: string) => void;
 	destroy: (widgetId: string) => void;
-}
-
-declare global {
-	interface Window {
-		smartCaptcha?: SmartCaptcha;
-	}
-	interface HTMLScriptElement {
-		loaded?: boolean;
-	}
 }
 
 export type YandexSmartCaptchaProps = {

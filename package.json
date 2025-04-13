@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "generate:types": "vue-tsc --declaration --emitDeclarationOnly --outdir ./dist",
+    "build": "vue-tsc --noEmit && vite build",
+    "generate:types": "vue-tsc -b",
     "types": "vue-tsc",
     "preview": "vite preview"
   },
@@ -27,13 +27,13 @@
     "dist",
     "src"
   ],
-  "main": "./dist/vue3-yandex-smartcapcha.umd.cjs",
-  "module": "./dist/vue3-yandex-smartcapcha.js",
+  "main": "./dist/vue3-yandex-smartcaptcha.umd.cjs",
+  "module": "./dist/vue3-yandex-smartcaptcha.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/vue3-yandex-smartcapcha.js",
-      "require": "./dist/vue3-yandex-smartcapcha.umd.cjs",
+      "import": "./dist/vue3-yandex-smartcaptcha.es.js",
+      "require": "./dist/vue3-yandex-smartcaptcha.umd.cjs",
       "types": "./dist/index.d.ts"
     }
   },
@@ -43,10 +43,11 @@
   "devDependencies": {
     "@types/node": "^22.1.0",
     "@vitejs/plugin-vue": "^5.1.2",
-    "typescript": "^5.5.4",
+    "@vue/compiler-sfc": "^3.5.13",
+    "typescript": "^5.8.3",
     "vite": "^5.3.4",
-    "vite-plugin-dts": "^4.0.0-beta.2",
+    "vite-plugin-dts": "^4.5.3",
     "vue": "^3.0.0",
-    "vue-tsc": "^2.0.29"
+    "vue-tsc": "^2.2.8"
   }
 }

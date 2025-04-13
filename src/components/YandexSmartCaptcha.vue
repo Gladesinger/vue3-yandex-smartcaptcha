@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, h } from "vue";
 
-import type { CaptchaEvents, SupportedLanguage, ShieldPosition, YandexSmartCaptchaProps, YandexSmartCaptchaEmits } from "./types";
+import type { CaptchaEvents, SupportedLanguage, ShieldPosition, YandexSmartCaptchaProps, YandexSmartCaptchaEmits } from "../types/types";
+
 
 const props = withDefaults(defineProps<YandexSmartCaptchaProps>() , {
     language: "ru" as SupportedLanguage,
