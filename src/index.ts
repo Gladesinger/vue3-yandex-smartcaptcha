@@ -2,12 +2,14 @@ import YandexSmartCaptcha from './components/YandexSmartCaptcha.vue';
 export { YandexSmartCaptcha };
 
 export type {
-  CaptchaEvents,
-  SupportedLanguage,
-  ShieldPosition,
-  SmartCaptcha,
-  YandexSmartCaptchaEmits,
-  YandexSmartCaptchaProps,
-  SmartCaptchaOptions,
+  TCaptchaEvents,
+  TSupportedLanguages,
+  TShieldPositions,
+  IRenderParams,
+  TWidgetId,
+  IYandexSmartCaptchaEmits,
+  IYandexSmartCaptchaProps,
+  ISmartCaptchaApi,
+  IJavascriptErrorData,
   IYandexSmartCaptcha
 } from './types/types';
