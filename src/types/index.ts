@@ -86,4 +86,4 @@ declare global {
 	interface HTMLScriptElement {
 		loaded?: boolean;
 	}
-}
+} 

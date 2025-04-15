@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import { YandexSmartCaptcha, type IYandexSmartCaptcha } from './index'
+import { YandexSmartCaptcha } from './index'
+import type { IYandexSmartCaptcha } from "./types";
 
 const token = ref<string | null>(null);
 const yaCaptcha = ref<IYandexSmartCaptcha | null>(null);

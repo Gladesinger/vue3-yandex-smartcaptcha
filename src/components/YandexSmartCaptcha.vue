@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, h } from "vue";
 
+import type { Ref } from "vue";
 import type {
 	TCaptchaEvents,
 	TWidgetId,
@@ -8,7 +9,7 @@ import type {
 	IYandexSmartCaptcha,
 	IYandexSmartCaptchaProps,
 	IYandexSmartCaptchaEmits,
-} from "../types/types";
+} from "../types";
 
 defineOptions({
 	name: "YandexSmartCaptcha",

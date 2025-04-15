@@ -35,6 +35,10 @@
 			"types": "./dist/index.d.ts",
 			"import": "./dist/vue3-yandex-smartcaptcha.es.js",
 			"require": "./dist/vue3-yandex-smartcaptcha.umd.cjs"
+		},
+		"./types": {
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/types/index.js"
 		}
 	},
 	"peerDependencies": {
