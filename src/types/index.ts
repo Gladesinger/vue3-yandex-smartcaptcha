@@ -41,8 +41,8 @@ export interface IYandexSmartCaptcha {
 	/** @description Captcha container ID
 	 * @description_ru ID контейнера капчи */
 	containerId: string;
-	/** @description Method for subscription to events
-	 * @description_ru Метод для подписки на события */
+	/** @description Method for subscription to events. Available events: : "challenge-visible" | "challenge-hidden" | "network-error" | "javascript-error" | "success" | "token-expired"
+	 * @description_ru Метод для подписки на события. Доступные события: "challenge-visible" | "challenge-hidden" | "network-error" | "javascript-error" | "success" | "token-expired" */
 	subscribe: (eventName: TCaptchaEvents, callback: Function) => void;
 	/** @description Start user verification
 	 * @description_ru Начать проверку пользователя */
@@ -75,8 +75,8 @@ export interface IYandexSmartCaptchaProps {
 	/** @description Client-side key for Yandex SmartCaptcha
 	 * @description_ru Ключ клиентской части капчи */
 	siteKey: string;
-	/** @description Widget language
-	 * @description_ru Язык виджета */
+	/** @description Widget language. Available values: "ru" | "en" | "be" | "kk" | "tt" | "uk" | "uz" | "tr"
+	 * @description_ru Язык виджета. Доступные значения: "ru" | "en" | "be" | "kk" | "tt" | "uk" | "uz" | "tr" */
 	language?: TSupportedLanguages;
 	/** @description Enable testing mode. User will always get the challenge
 	 * @description_ru Включить тестовый режим. Пользователь всегда будет получать задание */
@@ -87,8 +87,8 @@ export interface IYandexSmartCaptchaProps {
 	/** @description Invisible captcha mode
 	 * @description_ru Невидимый режим капчи */
 	invisible?: boolean;
-	/** @description Position of the notification block
-	 * @description_ru Позиция блока уведомлений */
+	/** @description Position of the notification block. Available values: "top-left" | "center-left" | "bottom-left" | "top-right" | "center-right" | "bottom-right"
+	 * @description_ru Позиция блока уведомлений. Доступные значения: "top-left" | "center-left" | "bottom-left" | "top-right" | "center-right" | "bottom-right" */
 	shieldPosition?: TShieldPositions;
 	/** @description Hide notification block
 	 * @description_ru Скрыть блок уведомлений */
