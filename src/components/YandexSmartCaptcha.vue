@@ -29,13 +29,15 @@ const props = withDefaults(defineProps<IYandexSmartCaptchaProps>(), {
 
 const emit = defineEmits<IYandexSmartCaptchaEmits>();
 
-const widgetId = ref<TWidgetId>(1);
+const widgetId = ref<TWidgetId | null>(null);
+const containerId = `smart-captcha-${Math.random().toString(36).substring(2, 15)}`;
+
 let script: HTMLScriptElement | undefined;
 
 const initializeCaptcha = () => {
-	if (window && document && window?.smartCaptcha && widgetId.value) {
-		const container = document?.getElementById(`smart-captcha-${widgetId.value}`);
-		
+	if (window && document && window?.smartCaptcha) {
+		const container = document?.getElementById(containerId);
+
 		if (container) {
 			widgetId.value = window?.smartCaptcha?.render(container, {
 				sitekey: props.siteKey,
@@ -55,6 +57,17 @@ const initializeCaptcha = () => {
 			window?.smartCaptcha?.subscribe(widgetId.value, "javascript-error", jsError);
 			window?.smartCaptcha?.subscribe(widgetId.value, "token-expired", tokenExpired);
 		}
+	}
+};
+
+const clearCaptcha = () => {
+	if (window && window?.smartCaptcha && widgetId.value !== null) {
+		try {
+			window.smartCaptcha.destroy(widgetId.value);
+		} catch {}
+	}
+	if (document && document.getElementsByClassName("smart-captcha").length == 1) {
+		if (script) script.remove();
 	}
 };
 
@@ -87,32 +100,30 @@ const tokenExpired = () => {
 };
 
 const execute = () => {
-	if (window?.smartCaptcha) {
+	if (window?.smartCaptcha && widgetId.value !== null) {
 		window.smartCaptcha.execute(widgetId.value);
 	}
 };
 
 const getResponse = () => {
-	if (window?.smartCaptcha) {
+	if (window?.smartCaptcha && widgetId.value !== null) {
 		return window.smartCaptcha.getResponse(widgetId.value);
 	}
 	return undefined;
 };
 
 const reset = () => {
-	if (window?.smartCaptcha) {
+	if (window?.smartCaptcha && widgetId.value !== null) {
 		window.smartCaptcha.reset(widgetId.value);
 	}
 };
 
 const destroy = () => {
-	if (window?.smartCaptcha) {
-		window.smartCaptcha.destroy(widgetId.value);
-	}
+	clearCaptcha();
 };
 
 const subscribe = (eventName: TCaptchaEvents, callbackFun: Function) => {
-	if (window?.smartCaptcha) {
+	if (window?.smartCaptcha && widgetId.value !== null) {
 		window.smartCaptcha.subscribe(widgetId.value, eventName, callbackFun);
 	}
 };
@@ -132,7 +143,6 @@ onMounted(() => {
 		if (script.loaded) {
 			initializeCaptcha();
 		} else {
-			// script.addEventListener("load", initializeCaptcha);
 			script.addEventListener("load", function onLoad() {
 				if (script) {
 					script.removeEventListener("load", onLoad);
@@ -165,18 +175,12 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-	if (window && window?.smartCaptcha) {
-		try {
-			window.smartCaptcha.destroy(widgetId.value);
-		} catch {}
-	}
-	if (document && document.getElementsByClassName("smart-captcha").length == 1) {
-		if (script) script.remove();
-	}
+	clearCaptcha();
 });
 
 defineExpose<IYandexSmartCaptcha>({
 	widgetId,
+	containerId,
 	subscribe,
 	execute,
 	getResponse,
@@ -187,9 +191,10 @@ defineExpose<IYandexSmartCaptcha>({
 const YaCaptcha = () =>
 	h("div", {
 		style: captchaStyles.value,
-		id: `smart-captcha-${widgetId.value}`,
+		id: containerId,
 		class: "smart-captcha",
 		"data-widget-id": widgetId.value,
+		"data-sitekey": props.siteKey,
 	});
 </script>
 
