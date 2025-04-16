@@ -1,16 +1,29 @@
 {
-    "files": [],
-    "compilerOptions": {
-      "outDir": "dist",
-      "declaration": true,
-    },
-    "references": [
-      {
-        "path": "./tsconfig.app.json"
-      },
-      {
-        "path": "./tsconfig.node.json"
-      }
-    ],
-    "exclude": ["src/App.vue", "src/main.ts"]
-  }
+	"files": [],
+	"extends": "@vue/tsconfig/tsconfig.dom.json",
+	"compilerOptions": {
+		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowJs": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"declaration": true,
+		"declarationMap": false,
+		"emitDeclarationOnly": true,
+		"baseUrl": ".",
+		"outDir": "dist"
+	},
+	"include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+	"exclude": ["dist", "node_modules", "src/App.vue", "src/main.ts", "src/**/__tests__/*"]
+}

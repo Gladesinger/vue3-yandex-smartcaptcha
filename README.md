@@ -13,7 +13,7 @@ Yandex Smart Captcha Vue component
 Чтобы установить этот пакет, выполните следующую команду:
 
 ```bash
-npm install @gladesinger/vue3-yandex-smartcaptcha
+npm install @gladesinger/vue3-yandex-smartcaptcha@latest
 ```
 
 <!-- ## Использование -->
@@ -40,7 +40,31 @@ app.component('YandexSmartCaptcha', YandexSmartCaptcha)
 app.mount('#app')
 ```
 
-Для использования в Nuxt оберните вызов компонента в ClientOnly.
+Для использования в Nuxt, оберните вызов компонента в ClientOnly.
+
+## TypeScript Поддержка
+
+Компонент полностью поддерживает TypeScript и предоставляет типы для всех пропсов, эмитов и методов. Типы доступны через импорт:
+
+```typescript
+import type { 
+  IYandexSmartCaptchaProps,
+  IYandexSmartCaptchaEmits,
+  IYandexSmartCaptcha,
+  TCaptchaEvents,
+  TSupportedLanguages,
+  TShieldPositions
+} from '@gladesinger/vue3-yandex-smartcaptcha/types';
+```
+
+### Доступные типы:
+
+- `IYandexSmartCaptchaProps` - типы для пропсов компонента
+- `IYandexSmartCaptchaEmits` - типы для эмитов компонента
+- `IYandexSmartCaptcha` - типы для методов и свойств компонента
+- `TCaptchaEvents` - типы для событий капчи
+- `TSupportedLanguages` - поддерживаемые языки
+- `TShieldPositions` - возможные позиции щита
 
 ## Пропсы
 
@@ -49,13 +73,15 @@ app.mount('#app')
 | Пропс              | Тип     | Значение по умолчанию | Описание                                                                                  |
 |--------------------|---------|------------------------|-------------------------------------------------------------------------------------------|
 | `siteKey`          | `String` | -                      | Ключ клиентской части.                                                                    |
-| `language`         | `String` | `'ru'`                 | Язык виджета. Возможные значения: `'ru'`, `'en'`, `'be'`, `'kk'`, `'tt'`, `'uk'`, `'uz'`, `'tr'`. |
+| `language`         | `TSupportedLanguages` | `'ru'`                 | Язык виджета. Возможные значения: `'ru'`, `'en'`, `'be'`, `'kk'`, `'tt'`, `'uk'`, `'uz'`, `'tr'`. |
 | `test`             | `Boolean`| `false`                | Включение работы капчи в режиме тестирования. Пользователь всегда будет получать задание. Используйте только для отладки и тестирования. |
 | `webview`          | `Boolean`| `false`                | Запуск капчи в WebView для повышения точности оценки пользователей в мобильных приложениях. |
 | `invisible`        | `Boolean`| `false`                | Невидимая капча.                                                                         |
-| `shieldPosition`   | `String` | `'bottom-right'`       | Расположение блока с уведомлением об обработке данных.                                    |
+| `shieldPosition`   | `TShieldPositions` | `'bottom-right'`       | Расположение блока с уведомлением об обработке данных. Доступные значения: `'top-left'`, `'center-left'`, `'bottom-left'`, `'top-right'`, `'center-right'`, `'bottom-right'`.                                   |
 | `hideShield`       | `Boolean`| `false`                | Скрыть блок с уведомлением об обработке данных.                                           |
 | `loadWidget`       | `Boolean`| `true`                 | Загружать виджет при монтировании компонента.                                            |
+| `defer`            | `Boolean`| `true`                 | Загружать скрипт с атрибутом defer.                                                      |
+| `async`            | `Boolean`| `true`                 | Загружать скрипт с атрибутом async.                                                      |
 
 ## Эмиты
 
@@ -63,13 +89,13 @@ app.mount('#app')
 
 | Событие            | Описание                                                        | Аргумент                 |
 |--------------------|-----------------------------------------------------------------|--------------------------|
-| `callback`         | Функция-обработчик, возвращает токен в случае успеха             | `token: string`          |
-| `onChallengeVisible` | Открытие всплывающего окна с заданием                            | `() => void`             |
-| `onChallengeHidden` | Закрытие всплывающего окна с заданием                            | `() => void`             |
-| `onNetworkError`   | Возникла сетевая ошибка                                         | `() => void`             |
-| `onJavaScriptError`| Возникла критическая ошибка JS                                   | `error: { filename: string, message: string, col: number, line: number }` |
-| `onSuccess`        | Успешная валидация пользователя                                  | `token: string`          |
-| `onTokenExpired`   | Токен прохождения проверки стал невалидным                       | `() => void`             |
+| `callback`         | Функция-обработчик, возвращает токен в случае успеха.             | `token: string`          |
+| `onChallengeVisible` | Открытие всплывающего окна с заданием.                            | `() => void`             |
+| `onChallengeHidden` | Закрытие всплывающего окна с заданием.                            | `() => void`             |
+| `onNetworkError`   | Возникла сетевая ошибка.                                         | `error: { message: string }` |
+| `onJavaScriptError`| Возникла критическая ошибка JS.                                   | `error: { filename: string, message: string, col: number, line: number }` |
+| `onSuccess`        | Успешная валидация пользователя.                                  | `token: string`          |
+| `onTokenExpired`   | Токен прохождения проверки стал невалидным.                       | `() => void`             |
 
 ## Методы
 
@@ -81,18 +107,7 @@ app.mount('#app')
 | `execute`   | Запускает проверку пользователя. Используется для запуска невидимой капчи. |  |
 | `reset`     | Сбрасывает состояние виджета до начального. |  |
 | `destroy`   | Удаляет виджет и созданные им обработчики.  |  |
-| `subscribe` | Подписывает обработчики на определенные события виджета. Например, для отслеживания открытия и закрытия всплывающего окна с заданием. | `eventName: SubscribeEvent, callbackFun: Function` |
-
-Спосок возможных событий:
-```javascript
-type SubscribeEvent =
-| 'challenge-visible'
-| 'challenge-hidden'
-| 'network-error'
-| 'javascript-error'
-| 'success'
-| 'token-expired';
-```
+| `subscribe` | Подписывает обработчики на определенные события виджета. Например, для отслеживания открытия и закрытия всплывающего окна с заданием. | `eventName: TCaptchaEvents, callbackFun: Function`. Доступные события: `'challenge-visible'`, `'challenge-hidden'`, `'network-error'`, `'javascript-error'`, `'success'`, `'token-expired'`. |
 
 Компонент также предоставляет значение `widgetId`. 
 
@@ -100,6 +115,7 @@ type SubscribeEvent =
 
 ### Обычная капча
 
+#### JavaScript
 ```vue
 <script setup>
 import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
@@ -124,8 +140,63 @@ const expired = () => {
 </template>
 ```
 
+#### TypeScript
+```vue
+<script setup lang="ts">
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
+import type { IYandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha/types'
+
+const success = (token: string) => {
+  console.log(token)
+}
+
+const expired = () => {
+  console.log('expired')
+}
+</script>
+
+<template>
+  <div>
+    <YandexSmartCaptcha 
+      siteKey="ваш_ключ_сайта"
+      @onSuccess="success"
+      @onTokenExpired="expired"
+    />
+  </div>
+</template>
+```
+
+#### TypeScript Nuxt 3
+```vue
+<script setup lang="ts">
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
+import type { IYandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha/types'
+
+const success = (token: string) => {
+  console.log(token)
+}
+
+const expired = () => {
+  console.log('expired')
+}
+</script>
+
+<template>
+  <div>
+    <ClientOnly>
+      <YandexSmartCaptcha 
+        siteKey="ваш_ключ_сайта"
+        @onSuccess="success"
+        @onTokenExpired="expired"
+      />
+    </ClientOnly>
+  </div>
+</template>
+```
+
 ### Невидимая капча
 
+#### JavaScript
 ```vue
 <script setup>
 import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
@@ -151,7 +222,44 @@ const fireCaptcha = () => {
     <YandexSmartCaptcha 
       ref="yaCaptcha"
       siteKey="ваш_ключ_сайта"
-      invisible="true"
+      :invisible="true"
+      shieldPosition="top-left"
+      @onSuccess="success"
+      @onTokenExpired="expired"
+    />
+    <button @click="fireCaptcha">Тест</button>
+  </div>
+</template>
+```
+
+#### TypeScript
+```vue
+<script setup lang="ts">
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
+import type { IYandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha/types'
+import { ref } from 'vue'
+
+const yaCaptcha = ref<IYandexSmartCaptcha | null>(null)
+
+const success = (token: string) => {
+  console.log(token)
+}
+
+const expired = () => {
+  console.log('expired')
+}
+
+const fireCaptcha = () => {
+  yaCaptcha.value?.execute()
+}
+</script>
+
+<template>
+  <div>
+    <YandexSmartCaptcha 
+      ref="yaCaptcha"
+      siteKey="ваш_ключ_сайта"
+      :invisible="true"
       shieldPosition="top-left"
       @onSuccess="success"
       @onTokenExpired="expired"
@@ -170,7 +278,7 @@ This package brings a component for Yandex Smartcaptcha. Before using it you nee
 To install this package, run the following command:
 
 ```bash
-npm install @gladesinger/vue3-yandex-smartcaptcha
+npm install @gladesinger/vue3-yandex-smartcaptcha@latest
 ```
 
 ## Usage
@@ -199,6 +307,30 @@ app.mount('#app')
 
 For usage in Nuxt, wrap the component call in `ClientOnly`.
 
+## TypeScript Support
+
+The component fully supports TypeScript and provides types for all props, emits, and methods. Types are available through import:
+
+```typescript
+import type { 
+  IYandexSmartCaptchaProps,
+  IYandexSmartCaptchaEmits,
+  IYandexSmartCaptcha,
+  TCaptchaEvents,
+  TSupportedLanguages,
+  TShieldPositions
+} from '@gladesinger/vue3-yandex-smartcaptcha/types';
+```
+
+### Available Types:
+
+- `IYandexSmartCaptchaProps` - types for component props
+- `IYandexSmartCaptchaEmits` - types for component emits
+- `IYandexSmartCaptcha` - types for component methods and properties
+- `TCaptchaEvents` - types for captcha events
+- `TSupportedLanguages` - supported languages
+- `TShieldPositions` - possible shield positions
+
 ## Props
 
 Here is a list of available props for the `YandexSmartCaptcha` component:
@@ -206,13 +338,15 @@ Here is a list of available props for the `YandexSmartCaptcha` component:
 | Prop              | Type     | Default Value          | Description                                                                                  |
 |-------------------|----------|------------------------|----------------------------------------------------------------------------------------------|
 | `siteKey`         | `String`  | -                      | Client-side key.                                                                            |
-| `language`        | `String`  | `'ru'`                 | Widget language. Possible values: `'ru'`, `'en'`, `'be'`, `'kk'`, `'tt'`, `'uk'`, `'uz'`, `'tr'`. |
+| `language`        | `TSupportedLanguages`  | `'ru'`                 | Widget language. Available values: `'ru'`, `'en'`, `'be'`, `'kk'`, `'tt'`, `'uk'`, `'uz'`, `'tr'`. |
 | `test`            | `Boolean` | `false`                | Enables captcha testing mode. The user will always receive a challenge. Use only for debugging and testing. |
 | `webview`         | `Boolean` | `false`                | Runs the captcha in WebView to improve accuracy in mobile applications using WebView.        |
 | `invisible`       | `Boolean` | `false`                | Invisible captcha.                                                                          |
-| `shieldPosition`  | `String`  | `'bottom-right'`       | Position of the data processing notification block.                                        |
+| `shieldPosition`  | `TShieldPositions`  | `'bottom-right'`       | Position of the data processing notification block. Available values: `'top-left'`, `'center-left'`, `'bottom-left'`, `'top-right'`, `'center-right'`, `'bottom-right'`.                                        |
 | `hideShield`      | `Boolean` | `false`                | Hides the data processing notification block.                                               |
 | `loadWidget`      | `Boolean` | `true`                 | Load the widget when the component is mounted.                                               |
+| `defer`           | `Boolean` | `true`                 | Load script with defer attribute.                                                           |
+| `async`           | `Boolean` | `true`                 | Load script with async attribute.                                                           |
 
 ## Events
 
@@ -220,13 +354,13 @@ The `YandexSmartCaptcha` component supports the following events:
 
 | Event               | Description                                                    | Argument                 |
 |---------------------|----------------------------------------------------------------|--------------------------|
-| `callback`          | Callback function, returns the token on success                | `token: string`          |
-| `onChallengeVisible`| Challenge window becomes visible                               | `() => void`             |
-| `onChallengeHidden` | Challenge window becomes hidden                                | `() => void`             |
-| `onNetworkError`    | Network error occurred                                         | `() => void`             |
-| `onJavaScriptError` | Critical JavaScript error occurred                             | `error: { filename: string, message: string, col: number, line: number }` |
-| `onSuccess`         | Successful user validation                                     | `token: string`          |
-| `onTokenExpired`    | The token has expired                                          | `() => void`             |
+| `callback`          | Callback function, returns the token on success.                | `token: string`          |
+| `onChallengeVisible`| Challenge window becomes visible.                               | `() => void`             |
+| `onChallengeHidden` | Challenge window becomes hidden.                                | `() => void`             |
+| `onNetworkError`    | Network error occurred.                                         | `error: { message: string }` |
+| `onJavaScriptError` | Critical JavaScript error occurred.                             | `error: { filename: string, message: string, col: number, line: number }` |
+| `onSuccess`         | Successful user validation.                                     | `token: string`          |
+| `onTokenExpired`    | The token has expired.                                          | `() => void`             |
 
 ## Methods
 
@@ -238,19 +372,7 @@ The component exposes the following methods:
 | `execute`    | Starts the user verification process. Used to trigger the invisible captcha. |  |
 | `reset`      | Resets the widget to its initial state. |  |
 | `destroy`    | Removes the widget and its handlers. |  |
-| `subscribe`  | Subscribes handlers to specific widget events. For example, to track the opening and closing of the challenge window. | `eventName: SubscribeEvent, callbackFun: Function` |
-
-Possible events:
-
-```javascript
-type SubscribeEvent =
-| 'challenge-visible'
-| 'challenge-hidden'
-| 'network-error'
-| 'javascript-error'
-| 'success'
-| 'token-expired';
-```
+| `subscribe`  | Subscribes handlers to specific widget events. For example, to track the opening and closing of the challenge window. | `eventName: TCaptchaEvents, callbackFun: Function`. Available events: `'challenge-visible'`, `'challenge-hidden'`, `'network-error'`, `'javascript-error'`, `'success'`, `'token-expired'`. |
 
 The component also exposes the `widgetId` state, if you need it for your case.
 
@@ -258,6 +380,7 @@ The component also exposes the `widgetId` state, if you need it for your case.
 
 ### Regular Captcha
 
+#### JavaScript
 ```vue
 <script setup>
 import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
@@ -282,8 +405,63 @@ const expired = () => {
 </template>
 ```
 
+#### TypeScript
+```vue
+<script setup lang="ts">
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
+import type { IYandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha/types'
+
+const success = (token: string) => {
+  console.log(token)
+}
+
+const expired = () => {
+  console.log('expired')
+}
+</script>
+
+<template>
+  <div>
+    <YandexSmartCaptcha 
+      siteKey="your_site_key"
+      @onSuccess="success"
+      @onTokenExpired="expired"
+    />
+  </div>
+</template>
+```
+
+#### TypeScript Nuxt 3
+```vue
+<script setup lang="ts">
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
+import type { IYandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha/types'
+
+const success = (token: string) => {
+  console.log(token)
+}
+
+const expired = () => {
+  console.log('expired')
+}
+</script>
+
+<template>
+  <div>
+    <ClientOnly>
+      <YandexSmartCaptcha 
+        siteKey="your_site_key"
+        @onSuccess="success"
+        @onTokenExpired="expired"
+      />
+    </ClientOnly>
+  </div>
+</template>
+```
+
 ### Invisible Captcha
 
+#### JavaScript
 ```vue
 <script setup>
 import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
@@ -309,7 +487,44 @@ const fireCaptcha = () => {
     <YandexSmartCaptcha 
       ref="yaCaptcha"
       siteKey="your_site_key"
-      invisible="true"
+      :invisible="true"
+      shieldPosition="top-left"
+      @onSuccess="success"
+      @onTokenExpired="expired"
+    />
+    <button @click="fireCaptcha">Test</button>
+  </div>
+</template>
+```
+
+#### TypeScript
+```vue
+<script setup lang="ts">
+import { YandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha'
+import type { IYandexSmartCaptcha } from '@gladesinger/vue3-yandex-smartcaptcha/types'
+import { ref } from 'vue'
+
+const yaCaptcha = ref<IYandexSmartCaptcha | null>(null)
+
+const success = (token: string) => {
+  console.log(token)
+}
+
+const expired = () => {
+  console.log('expired')
+}
+
+const fireCaptcha = () => {
+  yaCaptcha.value?.execute()
+}
+</script>
+
+<template>
+  <div>
+    <YandexSmartCaptcha 
+      ref="yaCaptcha"
+      siteKey="your_site_key"
+      :invisible="true"
       shieldPosition="top-left"
       @onSuccess="success"
       @onTokenExpired="expired"
