@@ -102,6 +102,9 @@ export interface IYandexSmartCaptchaProps {
 	/** @description Load script with async
 	 * @description_ru Загрузить скрипт с async */
 	async?: boolean;
+	/** @description Use smartcaptcha.yandexcloud.net
+	 * @description_ru Использовать smartcaptcha.yandexcloud.net */
+	useOldUrl?: boolean;
 }
 
 export interface IJavascriptErrorData {

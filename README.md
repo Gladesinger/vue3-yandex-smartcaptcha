@@ -81,7 +81,8 @@ import type {
 | `hideShield`       | `Boolean`| `false`                | Скрыть блок с уведомлением об обработке данных.                                           |
 | `loadWidget`       | `Boolean`| `true`                 | Загружать виджет при монтировании компонента.                                            |
 | `defer`            | `Boolean`| `true`                 | Загружать скрипт с атрибутом defer.                                                      |
-| `async`            | `Boolean`| `true`                 | Загружать скрипт с атрибутом async.                                                      |
+| `async`            | `Boolean`| `false`                 | Загружать скрипт с атрибутом async.                                                      |
+| `useOldUrl`        | `Boolean`| `false`                | Использовать старый smartcaptcha.yandexcloud.net адрес для загрузки скрипта.                  |
 
 ## Эмиты
 
@@ -346,7 +347,8 @@ Here is a list of available props for the `YandexSmartCaptcha` component:
 | `hideShield`      | `Boolean` | `false`                | Hides the data processing notification block.                                               |
 | `loadWidget`      | `Boolean` | `true`                 | Load the widget when the component is mounted.                                               |
 | `defer`           | `Boolean` | `true`                 | Load script with defer attribute.                                                           |
-| `async`           | `Boolean` | `true`                 | Load script with async attribute.                                                           |
+| `async`           | `Boolean` | `false`                 | Load script with async attribute.                                                           |
+| `useOldUrl`       | `Boolean` | `false`                | Use old smartcaptcha.yandexcloud.net url for loading script.                               |
 
 ## Events
 

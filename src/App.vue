@@ -73,6 +73,7 @@ const subscribeEvents = () => {
 			language="en"
 			:invisible="true"
 			shieldPosition="bottom-right"
+			class="captcha"
 			@callback="callback"
 			@onSuccess="success"
 			@onTokenExpired="expired"
@@ -80,7 +81,6 @@ const subscribeEvents = () => {
 			@onChallengeHidden="challengeHidden"
 			@onJavaScriptError="captureError"
 			@onNetworkError="captureError"
-			class="captcha"
 		/>
 		<div class="info">{{ `WidgetId: ${yaCaptcha?.widgetId}, ContainerId: ${yaCaptcha?.containerId}` }}</div>
 		<div class="token">{{ `Current token: ${token}` }}</div>

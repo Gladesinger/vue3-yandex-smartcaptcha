@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, h } from "vue";
-
-import type { Ref } from "vue";
 import type {
 	TCaptchaEvents,
 	TWidgetId,
@@ -24,7 +22,8 @@ const props = withDefaults(defineProps<IYandexSmartCaptchaProps>(), {
 	hideShield: false,
 	loadWidget: true,
 	defer: true,
-	async: true,
+	async: false,
+	useOldUrl: false,
 });
 
 const emit = defineEmits<IYandexSmartCaptchaEmits>();
@@ -135,8 +134,10 @@ const captchaStyles = computed(() => {
 onMounted(() => {
 	if (!props.loadWidget) return;
 
+	const scriptUrl = props.useOldUrl ? "smartcaptcha.yandexcloud.net" : "smartcaptcha.cloud.yandex.ru";
+
 	script = Array.from(document.getElementsByTagName("script")).find((s) =>
-		s.src.includes("smartcaptcha.yandexcloud.net/captcha.js")
+		s.src.includes(`${scriptUrl}/captcha.js`)
 	);
 
 	if (script) {
@@ -153,7 +154,7 @@ onMounted(() => {
 		}
 	} else {
 		script = document.createElement("script");
-		script.src = "https://smartcaptcha.yandexcloud.net/captcha.js?render=onload";
+		script.src = `https://${scriptUrl}/captcha.js?render=onload`;
 		script.type = "text/javascript";
 		script.crossOrigin = "anonymous";
 
